@@ -13,31 +13,29 @@ public class Statement {
         numberFormat.setMaximumFractionDigits(2);
 
         for (Performance performance : invoice.getPerformances()) {
-            Play play = plays.getPlayById(performance.getPlayId());
-
-            int thisAmount = amountFor(performance, play);
+            int thisAmount = amountFor(performance, plays);
 
             // add volume credits
             volumeCredits += Math.max(performance.getAudience() - 30, 0);
 
             // add extra credit for every ten comedy attendees
-            if (play.getType() == PlayType.COMEDY) {
+            if (playFor(plays, performance).getType() == PlayType.COMEDY) {
                 volumeCredits += (int) Math.floor((double) performance.getAudience() / 5);
             }
 
             // print line for this order (앞의 공백 제거)
-            result.append(String.format("%s: %s (%d석)\n", play.getName(), numberFormat.format(thisAmount / 100), performance.getAudience()));
+            result.append(String.format("%s: %s (%d석)\n", playFor(plays, performance), numberFormat.format(thisAmount / 100), performance.getAudience()));
             totalAmount += thisAmount;
         }
 
         result.append(String.format("총액: %s\n", numberFormat.format(totalAmount / 100)));
-        result.append(String.format("적립 포인트:: %d점\n", volumeCredits));
+        result.append(String.format("적립 포인트: %d점\n", volumeCredits));
         return result.toString();
     }
 
-    private int amountFor(Performance performance, Play play) throws Exception {
+    private int amountFor(Performance performance, Plays plays) throws Exception {
         int result;
-        switch (play.getType()) {
+        switch (playFor(plays, performance).getType()) {
             case TRAGEDY:
                 result = 40000;
                 if (performance.getAudience() > 30) {
@@ -52,8 +50,12 @@ public class Statement {
                 result += 300 * performance.getAudience();
                 break;
             default:
-                throw new Exception(String.format("알 수 없는 장르: %s", play.getType()));
+                throw new Exception(String.format("알 수 없는 장르: %s"));
         }
         return result;
+    }
+
+    private Play playFor(Plays plays, Performance performance) {
+        return plays.getPlayById(performance.getPlayId());
     }
 }
