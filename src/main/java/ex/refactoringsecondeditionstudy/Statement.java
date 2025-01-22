@@ -3,6 +3,10 @@ package ex.refactoringsecondeditionstudy;
 
 public class Statement {
     public String statement(Invoice invoice, Plays plays) throws Exception {
+        return renderPlainText(invoice, plays);
+    }
+
+    private String renderPlainText(Invoice invoice, Plays plays) throws Exception {
         StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", invoice.getCustomer()));
         for (Performance performance : invoice.getPerformances()) {
             result.append(String.format("%s: $%d %d석\n", playFor(plays, performance).getName(), amountFor(performance, plays) / 100, performance.getAudience()));
