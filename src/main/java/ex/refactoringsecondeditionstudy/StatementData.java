@@ -44,14 +44,6 @@ public class StatementData {
     }
 
     private int volumeCreditFor(Performance performance) {
-        int result = 0;
-
-        result += Math.max(performance.getAudience() - 30, 0);
-
-        if (playFor(performance).getType().equals(PlayType.COMEDY)) {
-            result += Math.floor(performance.getAudience() / 5);
-        }
-
-        return result;
+        return new PerformanceCaculator(performance, playFor(performance)).volumeCreditFor();
     }
 }

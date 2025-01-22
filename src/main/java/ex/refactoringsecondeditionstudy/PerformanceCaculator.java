@@ -29,4 +29,14 @@ public class PerformanceCaculator {
         return result;
     }
 
+    public int volumeCreditFor() {
+        int result = 0;
+
+        result += Math.max(performance.getAudience() - 30, 0);
+
+        if (play.getType().equals(PlayType.COMEDY)) {
+            result += Math.floor(performance.getAudience() / 5);
+        }
+        return result;
+    }
 }
