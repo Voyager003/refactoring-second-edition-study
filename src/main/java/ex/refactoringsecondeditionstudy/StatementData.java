@@ -24,25 +24,7 @@ public class StatementData {
     }
 
     public int amountFor(Performance performance) throws Exception {
-        int result;
-        switch (playFor(performance).getType()) {
-            case TRAGEDY:
-                result = 40000;
-                if (performance.getAudience() > 30) {
-                    result += 1000 * (performance.getAudience() - 30);
-                }
-                break;
-            case COMEDY:
-                result = 30000;
-                if (performance.getAudience() > 20) {
-                    result += 10000 + 500 * (performance.getAudience() - 20);
-                }
-                result += 300 * performance.getAudience();
-                break;
-            default:
-                throw new Exception("알 수 없는 장르");
-        }
-        return result;
+        return new PerformanceCaculator(performance, playFor(performance)).amountFor();
     }
 
     public int totalAmount() throws Exception {
