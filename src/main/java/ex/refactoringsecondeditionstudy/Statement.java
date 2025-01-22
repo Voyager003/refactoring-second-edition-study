@@ -9,13 +9,7 @@ public class Statement {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
 
         for (Performance performance : invoice.getPerformances()) {
-            // add volume credits
-            volumeCredits += Math.max(performance.getAudience() - 30, 0);
-
-            // add extra credit for every ten comedy attendees
-            if (playFor(plays, performance).getType() == PlayType.COMEDY) {
-                volumeCredits += Math.floor(performance.getAudience() / 5);
-            }
+            volumeCredits = volumeCreditFor(plays, performance, volumeCredits);
 
             // print line for this order (앞의 공백 제거)
             result.append(String.format("%s: $%d %d석\n",playFor(plays, performance).getName(), amountFor(performance, plays) / 100, performance.getAudience()));
@@ -25,6 +19,17 @@ public class Statement {
         result.append(String.format("총액: %s\n", totalAmount / 100));
         result.append(String.format("적립 포인트: %d점\n", volumeCredits));
         return result.toString();
+    }
+
+    private int volumeCreditFor(Plays plays, Performance performance, int volumeCredits) {
+        // add volume credits
+        volumeCredits += Math.max(performance.getAudience() - 30, 0);
+
+        // add extra credit for every ten comedy attendees
+        if (playFor(plays, performance).getType() == PlayType.COMEDY) {
+            volumeCredits += Math.floor(performance.getAudience() / 5);
+        }
+        return volumeCredits;
     }
 
     private int amountFor(Performance performance, Plays plays) throws Exception {
