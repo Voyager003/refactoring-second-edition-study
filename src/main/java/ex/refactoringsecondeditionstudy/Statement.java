@@ -1,7 +1,5 @@
 package ex.refactoringsecondeditionstudy;
 
-import java.text.NumberFormat;
-import java.util.Locale;
 
 
 public class Statement {
@@ -9,26 +7,22 @@ public class Statement {
         int totalAmount = 0;
         int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        numberFormat.setMaximumFractionDigits(2);
 
         for (Performance performance : invoice.getPerformances()) {
-            int thisAmount = amountFor(performance, plays);
-
             // add volume credits
             volumeCredits += Math.max(performance.getAudience() - 30, 0);
 
             // add extra credit for every ten comedy attendees
             if (playFor(plays, performance).getType() == PlayType.COMEDY) {
-                volumeCredits += (int) Math.floor((double) performance.getAudience() / 5);
+                volumeCredits += Math.floor(performance.getAudience() / 5);
             }
 
             // print line for this order (앞의 공백 제거)
-            result.append(String.format("%s: %s (%d석)\n", playFor(plays, performance), numberFormat.format(thisAmount / 100), performance.getAudience()));
-            totalAmount += thisAmount;
+            result.append(String.format("%s: $%d %d석\n",playFor(plays, performance).getName(), amountFor(performance, plays) / 100, performance.getAudience()));
+            totalAmount += amountFor(performance, plays);
         }
 
-        result.append(String.format("총액: %s\n", numberFormat.format(totalAmount / 100)));
+        result.append(String.format("총액: %s\n", totalAmount / 100));
         result.append(String.format("적립 포인트: %d점\n", volumeCredits));
         return result.toString();
     }
