@@ -10,10 +10,10 @@ public class Statement {
     private String renderPlainText(StatementData statementData, Plays plays) throws Exception {
         StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", statementData.getCustomer()));
         for (Performance performance : statementData.getPerformances()) {
-            result.append(String.format("%s: $%d %d석\n",playFor(plays, performance).getName(), amountFor(performance, plays) / 100, performance.getAudience()));
+            result.append(String.format("%s: $%d %d석\n", statementData.playFor(performance).getName(), amountFor(performance, plays) / 100, performance.getAudience()));
         }
 
-        result.append(String.format("총액: $%d\n",totalAmount(statementData.getInvoice(), plays)));
+        result.append(String.format("총액: $%d\n", totalAmount(statementData.getInvoice(), plays)));
         result.append(String.format("적립 포인트: %d점", totalVolumeCredits(statementData.getInvoice(), plays)));
         return result.toString();
     }

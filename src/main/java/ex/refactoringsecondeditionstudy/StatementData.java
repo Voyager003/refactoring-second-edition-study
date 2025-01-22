@@ -18,4 +18,8 @@ public class StatementData {
     public List<Performance> getPerformances() {
         return invoice.getPerformances();
     }
+
+    public Play playFor(Performance performance) {
+        return plays.getPlayById(performance.getPlayId());
+    }
 }
