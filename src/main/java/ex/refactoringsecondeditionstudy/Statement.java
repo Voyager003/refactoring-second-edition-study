@@ -5,19 +5,20 @@ package ex.refactoringsecondeditionstudy;
 public class Statement {
     public String statement(Invoice invoice, Plays plays) throws Exception {
         int totalAmount = 0;
-        int volumeCredits = 0;
+
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
-
         for (Performance performance : invoice.getPerformances()) {
-            volumeCredits = volumeCreditFor(plays, performance);
-
-            // print line for this order (앞의 공백 제거)
             result.append(String.format("%s: $%d %d석\n",playFor(plays, performance).getName(), amountFor(performance, plays) / 100, performance.getAudience()));
             totalAmount += amountFor(performance, plays);
         }
 
+        int volumeCredit = 0;
+        for (Performance performance : invoice.getPerformances()) {
+            volumeCredit += volumeCreditFor(plays, performance);
+        }
+
         result.append(String.format("총액: %s\n", totalAmount / 100));
-        result.append(String.format("적립 포인트: %d점\n", volumeCredits));
+        result.append(String.format("적립 포인트: %d점\n", volumeCredit));
         return result.toString();
     }
 
