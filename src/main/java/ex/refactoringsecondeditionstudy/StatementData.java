@@ -1,7 +1,11 @@
 package ex.refactoringsecondeditionstudy;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+import java.util.List;
+
+@Getter
 @AllArgsConstructor
 public class StatementData {
     private Invoice invoice;
@@ -9,5 +13,9 @@ public class StatementData {
 
     public String getCustomer() {
         return invoice.getCustomer();
+    }
+
+    public List<Performance> getPerformances() {
+        return invoice.getPerformances();
     }
 }
