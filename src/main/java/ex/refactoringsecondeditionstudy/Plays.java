@@ -1,13 +1,16 @@
 package ex.refactoringsecondeditionstudy;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Plays {
-    private Map<String, Play> playMap = new HashMap<>();
+    private final Map<String, Play> playMap;
+
+    public Play getPlayById(String id) {
+        return playMap.get(id);
+    }
 }
