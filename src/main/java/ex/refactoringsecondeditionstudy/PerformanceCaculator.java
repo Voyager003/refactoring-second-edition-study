@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class PerformanceCaculator {
-    private Performance performance;
-    private Play play;
+    protected Performance performance;
+    protected Play play;
 
     public int amountFor() throws Exception {
         int result;

@@ -1,15 +1,20 @@
 package ex.refactoringsecondeditionstudy;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class StatementData {
     private Invoice invoice;
     private Plays plays;
+    private PerformanceCalculatorFactory performanceCalculatorFactory;
+
+    public StatementData(Invoice invoice, Plays plays) {
+        this.invoice = invoice;
+        this.plays = plays;
+        this.performanceCalculatorFactory = new PerformanceCalculatorFactory();
+    }
 
     public String getCustomer() {
         return invoice.getCustomer();
@@ -24,7 +29,7 @@ public class StatementData {
     }
 
     public int amountFor(Performance performance) throws Exception {
-        return new PerformanceCaculator(performance, playFor(performance)).amountFor();
+        return performanceCalculatorFactory.createPerformanceCaculator(performance, playFor(performance)).amountFor();
     }
 
     public int totalAmount() throws Exception {

@@ -23,7 +23,7 @@ public class Statement {
         result.append("<table> \n");
         result.append("<tr><th> 연극 </th> <th>좌석 수</th> <th>금액</th>");
         for (Performance performance : statementData.getPerformances()) {
-            result.append(String.format("<tr><td> %s: </td> <td> $%d </td> <td> %d석 </td></tr>\n", statementData.playFor(performance).getName(), statementData.amountFor(performance) / 100, performance.getAudience()));
+            result.append(String.format("<tr><td> %s: </td> <td> $%d </td> <td> %d석 </td></tr>\n",statementData.playFor(performance).getName(), statementData.amountFor(performance) / 100, performance.getAudience()));
         }
         result.append("</table>\n");
 
