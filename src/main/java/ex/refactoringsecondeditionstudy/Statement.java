@@ -6,16 +6,14 @@ public class Statement {
     public String statement(Invoice invoice, Plays plays) throws Exception {
         int totalAmount = 0;
 
-        StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
+        StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", invoice.getCustomer()));
         for (Performance performance : invoice.getPerformances()) {
             result.append(String.format("%s: $%d %d석\n",playFor(plays, performance).getName(), amountFor(performance, plays) / 100, performance.getAudience()));
             totalAmount += amountFor(performance, plays);
         }
 
-        int volumeCredit = totalVolumeCredits(invoice, plays);
-
-        result.append(String.format("총액: %s\n", totalAmount / 100));
-        result.append(String.format("적립 포인트: %d점\n", volumeCredit));
+        result.append(String.format("총액: $%d\n",totalAmount / 100));
+        result.append(String.format("적립 포인트: %d점", totalVolumeCredits(invoice, plays)));
         return result.toString();
     }
 
