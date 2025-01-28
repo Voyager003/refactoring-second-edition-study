@@ -31,8 +31,4 @@ public class Statement {
         result.append(String.format("적립 포인트: %d점", statementData.totalVolumeCredits()));
         return result.toString();
     }
-
-    private Play playFor(Plays plays, Performance performance) {
-        return plays.getPlayById(performance.getPlayId());
-    }
 }
