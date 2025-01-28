@@ -1,5 +1,7 @@
-package ex.refactoringsecondeditionstudy;
+package ex.refactoringsecondeditionstudy.ch01;
 
+import ex.refactoringsecondeditionstudy.ch01.calculator.PerformanceCaculator;
+import ex.refactoringsecondeditionstudy.ch01.calculator.PerformanceCalculatorFactory;
 import lombok.Getter;
 
 import java.util.List;

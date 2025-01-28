@@ -1,5 +1,8 @@
-package ex.refactoringsecondeditionstudy;
+package ex.refactoringsecondeditionstudy.ch01.calculator;
 
+import ex.refactoringsecondeditionstudy.ch01.Performance;
+import ex.refactoringsecondeditionstudy.ch01.Play;
+import ex.refactoringsecondeditionstudy.ch01.PlayType;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

@@ -1,4 +1,7 @@
-package ex.refactoringsecondeditionstudy;
+package ex.refactoringsecondeditionstudy.ch01.calculator;
+
+import ex.refactoringsecondeditionstudy.ch01.Performance;
+import ex.refactoringsecondeditionstudy.ch01.Play;
 
 public class TragedyCalculator extends PerformanceCaculator {
 

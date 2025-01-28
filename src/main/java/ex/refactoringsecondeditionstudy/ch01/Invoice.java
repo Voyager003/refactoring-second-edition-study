@@ -1,4 +1,4 @@
-package ex.refactoringsecondeditionstudy;
+package ex.refactoringsecondeditionstudy.ch01;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
