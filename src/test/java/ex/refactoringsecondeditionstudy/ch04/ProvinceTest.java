@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class ProvinceTest {
     private static final DataLoader DATA_LOADER = new DataLoader(
@@ -66,5 +67,11 @@ public class ProvinceTest {
             assertThat(asia.getShortfall()).isEqualTo(-26);
             assertThat(asia.getProfit()).isEqualTo(-10);
         });
+    }
+
+    @Test
+    void emptyStringDemand() {
+        assertThatThrownBy(() -> asia.setDemand(""))
+                .isInstanceOf(NumberFormatException.class);
     }
 }
