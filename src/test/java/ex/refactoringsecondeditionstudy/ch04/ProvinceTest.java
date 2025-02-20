@@ -6,6 +6,8 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ProvinceTest {
@@ -37,11 +39,12 @@ public class ProvinceTest {
 
     @Test
     void changeProduction() {
-        asia.getProducers().get(0).setProduction("20");
+        final Province noProducer = new Province(new ProvinceData("No Producer", new ArrayList<>(), 30, 20));
 
+        // Assert
         SoftAssertions.assertSoftly(softly -> {
-            assertThat(asia.getShortfall()).isEqualTo(-6);
-            assertThat(asia.getProfit()).isEqualTo(292);
+            assertThat(noProducer.getShortfall()).isEqualTo(30);
+            assertThat(noProducer.getProfit()).isZero();
         });
     }
 }
