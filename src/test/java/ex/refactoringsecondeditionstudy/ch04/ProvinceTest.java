@@ -47,4 +47,24 @@ public class ProvinceTest {
             assertThat(noProducer.getProfit()).isZero();
         });
     }
+
+    @Test
+    void zeroDemand() {
+        asia.setDemand("0");
+
+        SoftAssertions.assertSoftly(softly -> {
+            assertThat(asia.getShortfall()).isEqualTo(-25);
+            assertThat(asia.getProfit()).isZero();
+        });
+    }
+
+    @Test
+    void negativeDemand() {
+        asia.setDemand("-1");
+
+        SoftAssertions.assertSoftly(softly -> {
+            assertThat(asia.getShortfall()).isEqualTo(-26);
+            assertThat(asia.getProfit()).isEqualTo(-10);
+        });
+    }
 }
