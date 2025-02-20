@@ -20,4 +20,13 @@ public class ProvinceTest {
 
         assertThat(shortfall).isEqualTo(5);
     }
+
+    @Test
+    void profit() {
+        final Province asia = new Province(DATA_LOADER.sampleProvinceData());
+
+        final int profit = asia.getProfit();
+
+        assertThat(profit).isEqualTo(230);
+    }
 }
