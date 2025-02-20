@@ -2,6 +2,7 @@ package ex.refactoringsecondeditionstudy.ch04;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,5 +33,15 @@ public class ProvinceTest {
         final int profit = asia.getProfit();
 
         assertThat(profit).isEqualTo(230);
+    }
+
+    @Test
+    void changeProduction() {
+        asia.getProducers().get(0).setProduction("20");
+
+        SoftAssertions.assertSoftly(softly -> {
+            assertThat(asia.getShortfall()).isEqualTo(-6);
+            assertThat(asia.getProfit()).isEqualTo(292);
+        });
     }
 }
