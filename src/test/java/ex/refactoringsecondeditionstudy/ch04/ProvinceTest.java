@@ -2,6 +2,7 @@ package ex.refactoringsecondeditionstudy.ch04;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -12,10 +13,15 @@ public class ProvinceTest {
             new ObjectMapper()
     );
 
+    private Province asia;
+
+    @BeforeEach
+    void setUp() {
+        asia = new Province(DATA_LOADER.sampleProvinceData());
+    }
+
     @Test
     void shortfall() {
-        final Province asia = new Province(DATA_LOADER.sampleProvinceData());
-
         final int shortfall = asia.getShortfall();
 
         assertThat(shortfall).isEqualTo(5);
@@ -23,8 +29,6 @@ public class ProvinceTest {
 
     @Test
     void profit() {
-        final Province asia = new Province(DATA_LOADER.sampleProvinceData());
-
         final int profit = asia.getProfit();
 
         assertThat(profit).isEqualTo(230);
