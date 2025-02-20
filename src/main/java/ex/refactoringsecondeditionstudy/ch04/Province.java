@@ -12,7 +12,6 @@ public class Province {
     private final String name;
     private final List<Producer> producers;
     private int totalProduction;
-    @Getter
     private int demand;
     private int price;
 
@@ -35,6 +34,14 @@ public class Province {
         this.totalProduction += producer.getProduction();
     }
 
+    public int getShortfall() {
+        return this.demand - this.totalProduction;
+    }
+
+    public int getProfit() {
+        return this.demandValue() - this.demandCost();
+    }
+
     private int demandValue() {
         return this.satisfiedDemand() * this.price;
     }
@@ -46,8 +53,9 @@ public class Province {
     private int demandCost() {
         int remainingDemand = this.demand;
         int result = 0;
-
-        final List<Producer> sortedProducers = producers.stream().sorted((a, b) -> a.getCost() - b.getCost()).toList();
+        final List<Producer> sortedProducers = producers.stream()
+                .sorted((a, b) -> a.getCost() - b.getCost())
+                .toList();
 
         for (var p : sortedProducers) {
             final int contribution = Math.min(remainingDemand, p.getProduction());
@@ -60,5 +68,15 @@ public class Province {
 
     public List<Producer> getProducers() {
         return Collections.unmodifiableList(producers);
+    }
+
+
+    public void setDemand(final String demand) {
+        this.demand = Integer.parseInt(demand);
+    }
+
+
+    public void setPrice(final String price) {
+        this.price = Integer.parseInt(price);
     }
 }

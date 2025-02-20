@@ -16,14 +16,14 @@ public class DataLoader {
     private final ObjectMapper mapper;
 
     public ProvinceData sampleProvinceData() {
-        return loadResource("chapter4/province.json", new TypeReference<>() {
+        return loadResource("ch04/province.json", new TypeReference<>() {
         });
     }
 
     private <T> T loadResource(String path, TypeReference<T> typeReference) {
         try (InputStream inputStream = classLoader.getResourceAsStream(path)) {
             if (Objects.isNull(inputStream)) {
-                throw new IllegalStateException("테스트 리소스가 없습니다!: " + path);
+                throw new IllegalStateException("there is no test resource: " + path);
             }
             return mapper.readValue(inputStream, typeReference);
         } catch (IOException e) {
